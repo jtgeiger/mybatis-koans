@@ -135,7 +135,7 @@ public class Koan07 {
       int limit = 12;
       RowBounds rb = new RowBounds(offset, limit);
       Koan07Mapper mapper = session.getMapper(Koan07Mapper.class);
-      List<Country> lc = mapper.getCountryRange(rb);
+      List<Country> lc = mapper.getCountryRange2(rb);
 
       assertEquals(12, lc.size());
       Country finland = lc.get(11);
