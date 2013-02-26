@@ -6,20 +6,20 @@
 <mapper namespace="net.thornydev.mybatis.koan.koan06.Koan06Mapper">
 
   <!-- TODO: fill in resultType -->
-  <select id="getCountryCount" resultType="???">
+  <select id="getCountryCount" resultType="int">
     SELECT count(*) FROM country 
   </select>
 
   <!-- TODO: fill in resultType -->
-  <select id="getCountryRange" resultType="???">
+  <select id="getCountryRange" resultType="Country">
     SELECT country_id AS id, country, last_update AS lastUpdate 
     FROM country
     <!-- TODO: fill in the default parameter names -->
-    WHERE country_id BETWEEN #{???} AND #{???}
+    WHERE country_id BETWEEN #{param1} AND #{param2}
   </select>
 
   <!-- TODO: fill in resultType -->
-  <select id="getCountryRange2" resultType="???">
+  <select id="getCountryRange2" resultType="Country">
     SELECT country_id AS id, country, last_update AS lastUpdate 
     FROM country
     WHERE country_id BETWEEN #{id1} AND #{id2}
@@ -29,15 +29,15 @@
   <!-- TODO: This one is called with a specify parameter type that 
              must be specified. (You may also want to declare a
              typeAlias for it.) -->
-  <select id="getCountryRange3" resultType="???">
+  <select id="getCountryRange3" resultType="Country">
     SELECT country_id AS id, country, last_update AS lastUpdate 
     FROM country
     <!-- TODO: fill in param names -->
-    WHERE country_id BETWEEN #{???} AND #{???}
+    WHERE country_id BETWEEN #{start} AND #{end}
   </select>
 
   <!-- TODO: fill in resultType -->
-  <select id="getCountries" resultType="???">
+  <select id="getCountries" resultType="Country">
     SELECT country_id as id, country, last_update as lastUpdate
     FROM country
   </select>

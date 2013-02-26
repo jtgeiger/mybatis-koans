@@ -50,61 +50,98 @@ public class Koan06 {
     // TODO: to move to the more idiomatic way of using sessions, open a session
     //       here and ensure it is closed when done (or an Exception occurs)
     SqlSession session = null;
-
-    // TODO: get a Koan06Mapper object
-    Koan06Mapper mapper = null;
-
-    // TODO: call a method on the mapper to get the count of number of countries
-    //       in the sakila db
-    int totalCountries = 0;
-
-    assertEquals(109, totalCountries);
-
+    session = sessionFactory.openSession();
+    
+    try
+    {
+    
+        // TODO: get a Koan06Mapper object
+        Koan06Mapper mapper = null;
+        mapper = session.getMapper( Koan06Mapper.class );
+    
+        // TODO: call a method on the mapper to get the count of number of countries
+        //       in the sakila db
+        int totalCountries = 0;
+        totalCountries = mapper.getCountryCount();
+    
+        assertEquals(109, totalCountries);
+    }
+    finally
+    {
     // REMINDER: be sure to close your session ...
+        session.close();
+    }
   }
 
   @Test
   public void learnToQueryWithMultipleParams() throws Exception {
     // TODO: open a session
     SqlSession session = null;
-
-    // TODO: get a Koan06Mapper object
-    Koan06Mapper mapper = null;
-
-    List<Country> lc = mapper.getCountryRange(22, 33);
-
-    assertEquals(12, lc.size());
-    Country finland = lc.get(11);
-    assertEquals("Finland", finland.getCountry());
-
+    session = sessionFactory.openSession();
+    
+    try
+    {
+    
+        // TODO: get a Koan06Mapper object
+        Koan06Mapper mapper = null;
+        mapper = session.getMapper( Koan06Mapper.class );
+    
+        List<Country> lc = mapper.getCountryRange(22, 33);
+    
+        assertEquals(12, lc.size());
+        Country finland = lc.get(11);
+        assertEquals("Finland", finland.getCountry());
+    }
+    finally
+    {
+        session.close();
+    }
   }
 
   @Test
   public void learnToQueryWithMultipleParamsWithAnnotatedNames() throws Exception {
     // TODO: open a session
     SqlSession session = null;
-
-    // TODO: get a Koan06Mapper object
-    Koan06Mapper mapper = null;
-
-    List<Country> lc = mapper.getCountryRange2(22, 33);
-
-    assertEquals(12, lc.size());
-    Country finland = lc.get(11);
-    assertEquals("Finland", finland.getCountry());
+    session = sessionFactory.openSession();
+    
+    try
+    {
+    
+        // TODO: get a Koan06Mapper object
+        Koan06Mapper mapper = null;
+        mapper = session.getMapper( Koan06Mapper.class );
+        
+        List<Country> lc = mapper.getCountryRange2(22, 33);
+    
+        assertEquals(12, lc.size());
+        Country finland = lc.get(11);
+        assertEquals("Finland", finland.getCountry());
+    }
+    finally
+    {
+        session.close();
+    }
   }
 
   @Test
   public void learnToQueryWithDomainSpecificRangeParam() throws Exception {
     // TODO: open a session
     SqlSession session = null;
+    session = sessionFactory.openSession();
+    
+    try
+    {
 
-    List<Country> lc = session.selectList("getCountryRange3", new Range(22, 33));
-
-    assertEquals(12, lc.size());
-    Country finland = lc.get(11);
-    assertEquals("Finland", finland.getCountry());
-
+        List<Country> lc = session.selectList("getCountryRange3", new Range(22, 33));
+    
+        assertEquals(12, lc.size());
+        Country finland = lc.get(11);
+        assertEquals("Finland", finland.getCountry());
+    }
+    finally
+    {
+        session.close();
+    }
   }
 
   // REMINDER: read the TODOs below carefully - this test should NOT use
@@ -113,44 +150,67 @@ public class Koan06 {
   public void learnToQueryWithRowBounds() throws Exception {
     // TODO: open a session
     SqlSession session = null;
-
-    // TODO: create a RowBounds object with an offset and limit
-    //       that cause 12 Countries to be returned starting with
-    //       country_id 22.  (The last country returned from the
-    //       query should be Finland.)
-    RowBounds rb = null;
-
-    // TODO: get a List<Country> by calling the "getCountries" mapping.
-    //       Use the RowBounds object to limit / filter the returned results.
-    //       Note: in this koan test we are NOT using a mapper object,
-    //       so call one of the session "select" methods directly.
-    List<Country> lc = null;
-
-    assertEquals(12, lc.size());
-    Country finland = lc.get(11);
-    assertEquals("Finland", finland.getCountry());
+    session = sessionFactory.openSession();
+    
+    try
+    {
+    
+        // TODO: create a RowBounds object with an offset and limit
+        //       that cause 12 Countries to be returned starting with
+        //       country_id 22.  (The last country returned from the
+        //       query should be Finland.)
+        RowBounds rb = null;
+        rb = new RowBounds( 22 - 1, 12 );
+        
+    
+        // TODO: get a List<Country> by calling the "getCountries" mapping.
+        //       Use the RowBounds object to limit / filter the returned results.
+        //       Note: in this koan test we are NOT using a mapper object,
+        //       so call one of the session "select" methods directly.
+        List<Country> lc = null;
+        lc = session.selectList( "getCountries", null, rb );
+    
+        assertEquals(12, lc.size());
+        Country finland = lc.get(11);
+        assertEquals("Finland", finland.getCountry());
+    }
+    finally
+    {
+        session.close();
+    }
   }
 
   @Test
   public void learnToQueryMapperClassWithRowBounds() throws Exception {
     // TODO: open a session
     SqlSession session = null;
-
-    // TODO: get a Koan06Mapper object
-    Koan06Mapper mapper = null;
-
-    // TODO: create a RowBounds object with an offset and limit
-    //       that cause 12 Countries to be returned starting with
-    //       country_id 22.  (The last country returned from the
-    //       query should be Finland.)
-    RowBounds rb = null;
-
-    // TODO: call getCountries on the mapper and use the RowBounds
-    //       object to limit / filter the returned Country objects
-    List<Country> lc = null;
-
-    assertEquals(12, lc.size());
-    Country finland = lc.get(11);
-    assertEquals("Finland", finland.getCountry());
+    session = sessionFactory.openSession();
+    
+    try
+    {
+        // TODO: get a Koan06Mapper object
+        Koan06Mapper mapper = null;
+        mapper = session.getMapper( Koan06Mapper.class );
+        
+        // TODO: create a RowBounds object with an offset and limit
+        //       that cause 12 Countries to be returned starting with
+        //       country_id 22.  (The last country returned from the
+        //       query should be Finland.)
+        RowBounds rb = null;
+        rb = new RowBounds( 22 - 1, 12 );
+    
+        // TODO: call getCountries on the mapper and use the RowBounds
+        //       object to limit / filter the returned Country objects
+        List<Country> lc = null;
+        lc = mapper.getCountries( rb );
+    
+        assertEquals(12, lc.size());
+        Country finland = lc.get(11);
+        assertEquals("Finland", finland.getCountry());
+    }
+    finally
+    {
+        session.close();
+    }
   }
 }
