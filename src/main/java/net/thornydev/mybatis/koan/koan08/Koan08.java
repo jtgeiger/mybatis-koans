@@ -67,6 +67,7 @@ public class Koan08 {
       //       you prefer.  Either way, get the return value of number of rows
       //       inserted and check that it is 1.
       int n = -1;
+      n = session.insert( "insertCountry", c );
       assertEquals(1, n);
 
       // validate that the insert worked
@@ -107,6 +108,7 @@ public class Koan08 {
       //       you prefer.  Either way, get the return value of number of rows
       //       updated and check that it is 1.
       int n = -1;
+      n = session.update( "updateCountry", c );
       assertEquals(1, n);
 
       int totalCountries = (Integer) session.selectOne("getCountryCount");
@@ -161,6 +163,7 @@ public class Koan08 {
       // TODO: delete record with id 1001 by using the whole Country
       //       object rather than just passing the id
       n = -1;
+      n = mapper.deleteCountry( c1001 );
       assertEquals(1, n);
       totalCountries = (Integer) session.selectOne("getCountryCount");
       assertEquals(109, totalCountries);
@@ -189,6 +192,9 @@ public class Koan08 {
 
       // TODO: create the Country "South Sudan", but leave the id blank
       Country c = null;
+      c = new Country();
+      c.setCountry( "South Sudan" );
+      c.setLastUpdate( NOW );
 
       int n = session.insert("insertCountry2", c);
       assertEquals(1, n);

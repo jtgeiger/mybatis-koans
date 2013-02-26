@@ -10,24 +10,24 @@
   <update id="updateCountry">
     <!-- TODO: fill in question marks below -->
     UPDATE country
-    SET country = ???, last_update = ???
-    WHERE country_id = ???
+    SET country = #{country}, last_update = #{lastUpdate}
+    WHERE country_id = #{id}
   </update>
 
   <!-- TODO: the insert xml element needs additional information to know 
              what's being passed in -->
   <insert id="insertCountry">
     INSERT INTO country (country_id, country, last_update)
-    VALUES (<!-- TODO: fill in how the values clause will be set with values passed in -->)
+    VALUES (#{id}, #{country}, #{lastUpdate} )
   </insert>
 
   <insert id="insertCountry2" parameterType="Country">
     <!-- TODO: the selectKey xml element needs attributes to know how to operate -->
-    <selectKey>
+    <selectKey keyProperty="id" resultType="int" order="BEFORE">
       SELECT max(country_id) + 1 AS id FROM country
     </selectKey>
     INSERT INTO country (country_id, country, last_update)
-	  VALUES (<!-- TODO: fill in how the values clause will be set with values passed in -->)
+	  VALUES (#{id}, #{country}, #{lastUpdate} )
   </insert>
 
   <select id="getCountryCount" resultType="int">
@@ -35,7 +35,8 @@
   </select>
 
   <!-- TODO: create a getMaxCountryId mapping -->
-  <select id="getMaxCountryId">
+  <select id="getMaxCountryId" resultType="int">
+    SELECT max(country_id) FROM country
   </select>
 
   <select id="getCountryById" resultType="Country">
