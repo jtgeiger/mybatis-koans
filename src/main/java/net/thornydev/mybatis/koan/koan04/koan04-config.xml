@@ -7,6 +7,10 @@
 <!-- NOTE: the order of elements in the MyBatis config file is significant. -->
 <configuration>
   <properties resource="net/thornydev/mybatis/koan/config.properties"/>
+  
+  <settings>
+    <setting name="mapUnderscoreToCamelCase" value="true" />
+  </settings>
 
   <typeAliases>
     <typeAlias type="net.thornydev.mybatis.koan.domain.Country" alias="Country" />
