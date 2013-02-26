@@ -21,9 +21,11 @@ public class Koan01 {
   public void learnBasicConfigurationSetup() throws Exception {
     // TODO: fill in path
     String resource = "";
+    resource = "net/thornydev/mybatis/koan/koan01/koan01-config.xml";
     InputStream inputStream = Resources.getResourceAsStream(resource);
     // TODO: create a SqlSessionFactory
     SqlSessionFactory sqlSessionFactory = null;
+    sqlSessionFactory = new SqlSessionFactoryBuilder().build( inputStream );
     inputStream.close();
 
     assertNotNull(sqlSessionFactory);
