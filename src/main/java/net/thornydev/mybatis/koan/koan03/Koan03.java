@@ -1,6 +1,8 @@
 package net.thornydev.mybatis.koan.koan03;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
 import java.util.List;
@@ -53,7 +55,8 @@ public class Koan03 {
   public void learnToQueryViaXmlMapperReturningCountryDomainObject() throws Exception {
     // TODO: call "selectFirstCountry" query to return a Country object
     Country c = null;
-
+    c = session.selectOne( "selectFirstCountry" );
+    
     assertNotNull(c);
     assertEquals(1, c.getId());
     assertEquals("Afghanistan", c.getCountry());
@@ -70,6 +73,7 @@ public class Koan03 {
   public void learnToQueryViaXmlMapperReturningListOfCountries() throws Exception {
     // TODO: query for a list of all Country objects
     List<Country> lmap = null;
+    lmap = session.selectList( "selectAsListOfCountries" );
 
     assertEquals(109, lmap.size());
     Country c109 = lmap.get(0);
@@ -87,13 +91,15 @@ public class Koan03 {
     //       This should return a map of all 109 countries and the key to
     //       the map is the id of the country in the database
     // TODO: fill in the ?,? of the Map to their proper types
-    Map<?,?> countriesMap = null;
+    Map<Number, Country> countriesMap = null;
+    countriesMap = session.selectMap( "selectAsMapOfCountries", "id" );
 
     assertEquals(109, countriesMap.size());
 
     // TODO: when you fill in the "?" generic placeholders above
     //       this cast will no longer be necessary - remove it
-    Country c33 = (Country)countriesMap.get(33);
+    //Country c33 = (Country)countriesMap.get(33);
+    Country c33 = countriesMap.get(33);
     assertEquals(33, c33.getId());
     assertEquals("Finland", c33.getCountry());
 
