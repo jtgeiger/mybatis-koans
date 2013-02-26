@@ -43,53 +43,56 @@ public class Koan02 {
   public void setUp() throws Exception {
     // TODO: create session
     session = null;
+    session = sessionFactory.openSession();
   }
 
   @After
   public void tearDown() throws Exception {
     // TODO: it is important to close your resources ...
-
+      session.close();
   }
 
   @Test
   public void learnToQueryViaXmlMapperReturningHashMap() throws Exception {
     // TODO: call "selectFirstCountryAsMap" mapped query
     // TODO: fill in "?" generic unknown placeholders
-    final Map<?,?> map = null;
-
+    //final Map<?,?> map = null;
+      final Map<String, Object> map = session.selectOne( "selectFirstCountryAsMap" );
+assertNotNull( map );
     assertEquals(1, ((Number) getFromMap(map, "country_id") ).intValue());
-    assertEquals("Afghanistan", map.get("country"));
-    assertNotNull(map.get("last_update"));
+    assertEquals("Afghanistan", getFromMap( map, "country"));
+    assertNotNull(getFromMap( map, "last_update"));
   }
 
   @Test
   public void learnToQueryMapperReturningHashMapWithParameterInput() throws Exception {
     // TODO: call "selectOneAsMapDynamic" mapped query, passing in id 33 as param
-    final Map<?,?> map = null;
+    //final Map<?,?> map = null;
+    final Map<String,Object> map = session.selectOne( "selectOneAsMapDynamic", 33 );
 
     assertEquals(33, ((Number)getFromMap(map, "country_id")).intValue());
-    assertEquals("Finland", map.get("country"));
-    assertNotNull(map.get("last_update"));
+    assertEquals("Finland", getFromMap(map, "country"));
+    assertNotNull(getFromMap(map, "last_update"));
   }
 
   @Test
   public void learnToQueryViaXmlMapperReturningListOfHashMaps() throws Exception {
     // TODO: query for a list
     // TODO: fill in "?" generic unknown placeholders
-    final List<Map<?,?>> lmap = session.selectList("selectAsListOfMaps");
+    final List<Map<String,Object>> lmap = session.selectList("selectAsListOfMaps");
 
     assertEquals(109, lmap.size());
     // TODO: fill in "?" generic unknown placeholders
-    final Map<?,?> map109 = lmap.get(0);
+    final Map<String,Object> map109 = lmap.get(0);
 
     assertEquals(109, ((Number)getFromMap(map109, "country_id")).intValue());
-    assertEquals("Zambia", map109.get("country"));
+    assertEquals("Zambia", getFromMap(map109, "country"));
   }
 
   /* ---[ Helper method ]--- */
 
   // TODO: fill in "?" generic unknown placeholders
-  private Object getFromMap(Map<?, ?> map, String key) {
+  private Object getFromMap(Map<String,Object> map, String key) {
     if (map.containsKey(key.toLowerCase())) {
       return map.get(key.toLowerCase());
     } else {

@@ -7,16 +7,20 @@
 
   <!-- TODO: select all rows as a list of hashmaps -->
   <!--       return them in sorted descending order by country_id -->
-  <select id="selectAsListOfMaps" resultType="???">    
+  <select id="selectAsListOfMaps" resultType="map">
+    select * from country order by country_id desc
   </select>
 
   <!-- TODO: fill in resultType -->
-  <select id="selectFirstCountryAsMap" resultType="???">
+  <select id="selectFirstCountryAsMap" resultType="map">
     select * from country where country_id = 1
   </select>
 
   <!-- TODO: create select entry called "selectOneAsMapDynamic" -->
   <!--       it should take an id parameter to look up a country -->
   <!--       by country_id. You will also need to specify resultType -->
+  <select id="selectOneAsMapDynamic" resultType="map">
+    select * from country where country_id = #{id}
+  </select>
   
 </mapper>
