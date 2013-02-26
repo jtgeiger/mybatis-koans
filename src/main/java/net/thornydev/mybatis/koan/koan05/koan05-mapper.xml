@@ -5,12 +5,12 @@
 
 <!-- TODO: set the namespace of the mapper element to match the Mapper
            object we created for Koan05 -->
-<mapper namespace="???">
+<mapper namespace="net.thornydev.mybatis.koan.koan05.Koan05Mapper">
 
   <!-- TODO: specify the id of this select mapping corresponding to
              the appropriate interface method in Koan05Mapper -->
   <!-- TODO: specify parameterType and resultType -->
-  <select id="???">
+  <select id="getCountryById" resultType="Country">
     SELECT country_id as id, country, last_update as lastUpdate
     FROM country 
     WHERE country_id = #{id}
@@ -24,5 +24,8 @@
 
   <!-- TODO: create a select mapping that corresponds to the
              getAllCountriesMappedById method in Koan05Mapper interface -->
-
+  <select id="getAllCountriesMappedById" resultType="Country">
+    SELECT country_id id, country, last_update lastUpdate
+    FROM country
+  </select>
 </mapper>
