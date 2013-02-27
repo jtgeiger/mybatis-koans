@@ -81,9 +81,10 @@ public class Koan10 {
       assertEquals(544, city.getId());
       assertEquals("Toulouse", city.getCity());
       assertNotNull(city.getLastUpdate());
-
+      
       // TODO: get the Country associated with the city "Toulouse"
       Country co = null;
+      co = city.getCountry();
       assertNotNull(co);
       assertEquals("France", co.getCountry());
       assertNotNull(co.getLastUpdate());

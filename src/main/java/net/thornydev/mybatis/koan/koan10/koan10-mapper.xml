@@ -9,6 +9,11 @@
              Note that the query below does NOT include column aliases that
              map to the Country object property names, so you will need to
              provide that mapping in the ResultMap -->
+  <resultMap id="countryResultMap" type="Country" >
+    <id property="id" column="country_id" />
+    <result property="lastUpdate" column="last_update" />
+  </resultMap>
+  
              
   <select id="getCountryById" parameterType="int" resultMap="countryResultMap">
     SELECT country_id, country, last_update
@@ -24,11 +29,19 @@
     <!-- HINT: You may have trouble getting the id constructor argument to the City object
                working. If you do, read the error message you get carefully and take note 
                that the City constructor takes a primitive int, not an Integer object. -->
-    
+    <constructor>
+      <idArg column="city_id" javaType="_integer" />
+    </constructor>
+    <result property="city" column="city" />
+    <result property="lastUpdate" column="city_upd" />
     <!-- TODO: make an association to the Country object. You can either specify
                the full association here or you can reuse the existing Country ResultMap,
                though that might take some minor tweaking to the getCityById SQL query. -->
-    <association property="???"></association>
+    <association property="country" javaType="Country">
+      <id property="id" column="country_id" />
+      <result property="country" column="country" />
+      <result property="lastUpdate" column="country_upd" />
+    </association>
   </resultMap>
 
   <!-- Nested Result for Association (Eager loading) -->
@@ -45,10 +58,12 @@
     <!-- TODO: remember that City does not have a default constructor, so you
                have to accommodate that here.  The aliases in the SQL query can
                only help with properties (via setters). -->
-    
+    <constructor>
+      <idArg column="city_id" javaType="_integer" />
+    </constructor>
     <!-- TODO: in the association below, do not reference a ResultMap. Instead
                reference the "getCountryById" select statement. -->
-    <association property="???"></association>
+    <association property="country" javaType="Country" column="country_id" select="getCountryById" />
   </resultMap>
 
   <select id="getCities" resultMap="cityResultMapLazy">

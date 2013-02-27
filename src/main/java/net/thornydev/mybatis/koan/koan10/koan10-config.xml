@@ -8,6 +8,7 @@
   <typeAliases>
     <typeAlias type="net.thornydev.mybatis.koan.domain.Country" alias="Country"/>
     <!-- TODO: need another type alias -->
+    <typeAlias type="net.thornydev.mybatis.koan.domain.City" alias="City"/>
   </typeAliases>
 
   <environments default="development">
