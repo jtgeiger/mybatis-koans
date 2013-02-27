@@ -7,7 +7,9 @@
   
   <!-- TODO: create an sql element called "selectAllCountries" that does
              the SELECT statement needed by all the "get" mappings below -->
-  <sql></sql>
+  <sql id="selectAllCountries">
+    SELECT country_id id, country FROM country
+  </sql>
 
   <!-- TODO: fill in the ${???} string substitution variable below -->
   <!-- Note: as of May 2012, the MyBatis User Guide has wrong (or incomplete)
@@ -16,12 +18,14 @@
   <select id="getCountriesOrdered" resultType="Country">
     <!-- TODO: Reference the "selectAllCountries" sql element here, rather
          than write SQL directly -->
-    ORDER BY ${???}  
+    <include refid="selectAllCountries" />
+    ORDER BY ${value}
   </select>
 
   <select id="getCountriesOrdered2" resultType="Country">
     <!-- TODO: Reference the "selectAllCountries" sql element here, rather
          than write SQL directly -->
+    <include refid="selectAllCountries" />
     ORDER BY ${columnName}  <!-- This variable name is correct - do NOT change it. 
                                  Instead, adjust the Koan09Mapper to use it. -->
   </select>
@@ -30,7 +34,8 @@
   <select id="getCountries" resultType="Country">
     <!-- TODO: Reference the "selectAllCountries" sql element here, rather
          than write SQL directly -->
-    ${???}
+    <include refid="selectAllCountries" />
+    ${value}
   </select>
 
 </mapper>

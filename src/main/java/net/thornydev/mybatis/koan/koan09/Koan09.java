@@ -70,6 +70,7 @@ public class Koan09 {
       //       the column to sort by and any other ordering information needed to make
       //       the asserts below pass
       List<Country> lc = null;
+      lc = mapper.getCountriesOrdered2( "country DESC" );
 
       assertEquals(109, lc.size());
       Country c = lc.get(0);
@@ -97,7 +98,7 @@ public class Koan09 {
 
       // TODO: specify a sort order via an SQL clause (where the ??? is)
       //       review the asserts below to know what SQL clause to use
-      List<Country> lc = session.selectList("getCountries", "???");
+      List<Country> lc = session.selectList("getCountries", "ORDER BY country DESC");
       assertEquals(109, lc.size());
       Country c = lc.get(0);
       assertEquals("Zambia", c.getCountry());
@@ -110,7 +111,7 @@ public class Koan09 {
 
       // TODO: specify a range via an SQL clause (where the ??? is)
       //       review the asserts below to know what SQL clause to use
-      lc = session.selectList("getCountries", "???");
+      lc = session.selectList("getCountries", "WHERE country_id BETWEEN 22 AND 33");
       assertEquals(12, lc.size());
       c = lc.get(11);
       assertEquals(33, c.getId());
