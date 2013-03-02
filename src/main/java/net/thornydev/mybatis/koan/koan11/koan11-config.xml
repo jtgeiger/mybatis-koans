@@ -9,6 +9,8 @@
     <!-- TODO: set up the necessary TypeAlias entries -->
     <!-- Use the alias "Film" for the FilmK11 class -->
     <!-- Use the alias "Language" for the LanguageK11 class -->
+    <typeAlias type="net.thornydev.mybatis.koan.koan11.FilmK11" alias="Film" />
+    <typeAlias type="net.thornydev.mybatis.koan.koan11.LanguageK11" alias="Language" />
   </typeAliases>
 
   <environments default="development">

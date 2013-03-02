@@ -4,21 +4,35 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- TODO: fill in namespace -->
-<mapper namespace="???">
+<mapper namespace="net.thornydev.mybatis.koan.koan11.LanguageMapper">
   
   <resultMap id="languageResultMap" type="Language">
     <!-- TODO: fill in mappings for Language -->
-
+    <constructor>
+        <idArg column="language_id" javaType="_integer" />
+        <arg column="name" javaType="string" />
+    </constructor>
+    <result property="lastUpdate" column="last_update" />
     <!-- TODO: create a collection mapping for the list of Films for a Language -->
     <!-- NOTE: only the id, title, lastUpdate and specialFeatures fields are required
                (by the unit test), but you can add more if you'd like -->
-    <collection/>
+    <collection property="films" ofType="Film">
+        <result property="id" column="film_id" />
+        <result property="title" column="title" />
+        <result property="lastUpdate" column="film_upd" />
+        <result property="specialFeatures" column="special_features" />
+    </collection>
   </resultMap>
 
   <select id="getLanguageById" parameterType="int" resultMap="languageResultMap">
     SELECT l.language_id, l.name, l.last_update,
            f.film_id, f.title, f.last_update as film_upd, f.special_features
     <!-- TODO: finish SQL that joins the language table and the film table -->
+           FROM language l
+           LEFT OUTER JOIN film f
+           ON l.language_id = f.language_id
+           WHERE l.language_id = #{thisCanBeAnything}
+           ORDER BY f.film_id DESC;
   </select>
 
 </mapper>
