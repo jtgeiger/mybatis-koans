@@ -8,6 +8,12 @@
   <resultMap id="actorMapper" type="Actor">
     <!-- TODO: fill in resultMap to work for both getActorById
                and getActorByFullName queries -->
+    <constructor>
+      <idArg column="actor_id" javaType="int" />
+      <arg column="first_name" javaType="string" />
+      <arg column="last_name" javaType="string" />
+      <arg column="last_update" javaType="date" />
+    </constructor>
   </resultMap>
   
   <select id="getActorById" parameterType="int" resultMap="actorMapper">
@@ -20,19 +26,23 @@
     SELECT actor_id, first_name, last_name, last_update
     FROM actor
     <!-- TODO: fill in where clause to match the method signature in ActorMapper interface -->
+    WHERE first_name = #{param1} AND last_name = #{param2}
     ORDER BY actor_id
   </select>
 
   <insert id="insertNewActor">
     INSERT INTO actor
-    VALUES( <!-- TODO: fill in VALUES clause --> )
+    VALUES( #{id}, #{firstName}, #{lastName}, #{lastUpdate} )
   </insert>
 
   <insert id="insertNewActorGetNextIdFromDb">
     <!-- TODO: create a selectKey element using the same logic we did
                in the previous koan where we used this -->   
+    <selectKey keyProperty="id" resultType="int" order="BEFORE">
+      SELECT max(actor_id) + 1 FROM actor
+    </selectKey>
     INSERT INTO actor
-    VALUES( <!-- TODO: fill in VALUES clause --> )
+    VALUES( #{id}, #{firstName}, #{lastName}, #{lastUpdate} )
   </insert>
 
 </mapper>

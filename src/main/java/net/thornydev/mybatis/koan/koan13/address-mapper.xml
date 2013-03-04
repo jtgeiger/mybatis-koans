@@ -4,14 +4,20 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- TODO: fill in namespace -->
-<mapper namespace="???">
+<mapper namespace="net.thornydev.mybatis.koan.koan13.AddressMapper">
   <resultMap id="addressResultMap" type="Address">
     <constructor>
       <!-- TODO: fill in the constructor args for an Address object here, making sure
                  to specify the javaType if/where necessary or desired -->
+      <idArg column="address_id" javaType="int" />
+      <arg column="address" javaType="string" />
+      <arg column="address2" javaType="string" />
+      <arg column="district" javaType="string" />
+      <arg column="postal_code" javaType="string" />
+      <arg column="phone" javaType="string" />
     </constructor>
     <!-- TODO: reference the cityResultMap resultMap -->
-    <association property="city" resultMap="???"/>
+    <association property="city" resultMap="net.thornydev.mybatis.koan.koan13.CityMapper.cityResultMap"/>
   </resultMap>  
   
   <select id="getAddressById" parameterType="int" resultMap="addressResultMap">
@@ -19,6 +25,9 @@
            ci.city_id, ci.city,
            co.country_id, co.country
     <!-- TODO: do a three table join (ideally using ANSI SQL join syntax) to do "eager loading" -->
+    FROM address a
+    JOIN city ci ON a.city_id = ci.city_id
+    JOIN country co ON ci.country_id = co.country_id
     WHERE a.address_id = #{id}
   </select>
 </mapper>

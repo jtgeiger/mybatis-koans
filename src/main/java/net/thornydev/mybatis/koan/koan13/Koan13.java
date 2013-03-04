@@ -80,6 +80,7 @@ public class Koan13 {
   @AfterClass
   public static void tearDownAfterClass() throws Exception {
     // TODO: remember to close your resources
+      session.close();
   }
 
   @Test

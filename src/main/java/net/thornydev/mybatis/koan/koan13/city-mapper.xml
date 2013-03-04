@@ -12,6 +12,6 @@
     <result property="lastUpdate" column="city_upd"/>
 
     <!-- TODO: reference the countryResultMap resultMap -->
-    <association property="country" resultMap="???"/>
+    <association property="country" resultMap="net.thornydev.mybatis.koan.koan13.CountryMapper.countryResultMap"/>
   </resultMap>
 </mapper>
