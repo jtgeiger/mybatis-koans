@@ -123,6 +123,9 @@ public class Koan12 {
       // TODO: create a Film object (id 1000) with properties set
       //       to pass tests down below
       Film f = null;
+      f = mapper.getFilmById( 1000 );
+      f.setReleaseYear( new Year( "2012" ) );
+      f.setReplacementCost( BigDecimal.valueOf( 25.95 ) );
 
       int n = mapper.updateYearAndReplacementCost(f);
       assertEquals(1, n);

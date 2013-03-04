@@ -21,14 +21,14 @@ public class FilmSpecialFeaturesTypeHandler extends BaseTypeHandler<List<String>
 
   @Override
   public List<String> getNullableResult(ResultSet rs, String colName) throws SQLException {
-    // TODO: fill in
-    return null;
+    String s = rs.getString( colName );
+    return cleanAndSplit( s );
   }
 
   @Override
   public List<String> getNullableResult(ResultSet rs, int colNum) throws SQLException {
-    // TODO: fill in
-    return null;
+      String s = rs.getString( colNum );
+      return cleanAndSplit( s );
   }
 
   private List<String> cleanAndSplit(final String sf) {

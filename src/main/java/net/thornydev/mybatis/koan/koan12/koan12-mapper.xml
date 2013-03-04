@@ -4,10 +4,10 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- TODO: fill in proper namespace -->
-<mapper namespace="???">
+<mapper namespace="net.thornydev.mybatis.koan.koan12.LanguageMapper">
   
   <!-- TODO: fill in property return type -->
-  <resultMap id="languageResultMap" type="???">
+  <resultMap id="languageResultMap" type="Language">
     <constructor>
       <idArg column="language_id" javaType="_integer"/>
       <arg column="name" javaType="String"/>
@@ -18,8 +18,10 @@
       <result property="title" column="title"/>
       <result property="lastUpdate" column="film_upd"/>
       <!-- TODO: specify result mapping for the release_year column -->
+      <result property="releaseYear" column="release_year" javaType="Year" />
       <result property="rentalRate"  column="rental_rate" />
       <!-- TODO: specify result mapping for the special_features column -->
+      <result property="specialFeatures" column="special_features" typeHandler="FilmSpecialFeaturesTypeHandler" />
     </collection>
   </resultMap>
 
