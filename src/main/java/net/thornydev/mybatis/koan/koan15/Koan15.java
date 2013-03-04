@@ -105,6 +105,7 @@ public class Koan15 {
     city(city).
     postalCode(null).
     phone("555-8675-309").
+    lastUpdate( new Date() ).
     build();
 
     int before = (Integer) session.selectOne("getCount", "address");
