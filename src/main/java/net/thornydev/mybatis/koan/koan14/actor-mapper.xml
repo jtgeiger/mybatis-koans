@@ -21,11 +21,11 @@
   </select>
   
   <!-- TODO: fill in the parameterType -->
-  <select id="getActorByRange" parameterType="???" resultMap="actorMapper">
+  <select id="getActorByRange" parameterType="Range" resultMap="actorMapper">
     SELECT actor_id, first_name, last_name, last_update
     FROM actor
     <!-- TODO: fill in the parameter names -->
-    WHERE actor_id BETWEEN #{???} AND #{???}
+    WHERE actor_id BETWEEN #{start} AND #{end}
   </select>
   
 </mapper>

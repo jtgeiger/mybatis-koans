@@ -1,7 +1,14 @@
 package net.thornydev.mybatis.koan.koan14;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import net.thornydev.mybatis.koan.domain.Actor;
+import net.thornydev.mybatis.koan.domain.Address;
+import net.thornydev.mybatis.koan.domain.Address.Builder;
+import net.thornydev.mybatis.koan.domain.City;
 import net.thornydev.mybatis.koan.util.KoanSchoolMarm;
 
 import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
@@ -17,7 +24,15 @@ public class Koan14ObjectFactory extends DefaultObjectFactory {
     // NOTE: make sure to handle the case where the Class passed in is not
     //       one of the specific types we are overriding below - those need
     //       to invoke the MyBatis default object factory creation code
-    return null;
+    //return null;
+      if ( type == City.class )
+          return createCity( ctorArgs );
+      else if ( type == Actor.class )
+          return createActor( ctorArgs );
+      else if ( type == Address.class )
+          return createAddress( ctorArgs );
+      else
+          return super.create( type, ctorArgTypes, ctorArgs );
   }
 
   /**
@@ -37,7 +52,14 @@ public class Koan14ObjectFactory extends DefaultObjectFactory {
     KoanSchoolMarm.getInstance().setObjectFactoryUsed(true);
 
     // TODO: fill in, using the three param constructor of City
-    return null;
+    //return null;
+    if ( ctorArgs.size() != 3 )
+        throw new IllegalArgumentException( "Expected 3 args; got=" + ctorArgs.size() );
+    
+    City city = new City( (Integer)ctorArgs.get( 0 ), (String)ctorArgs.get( 1 ), (Date)ctorArgs.get( 2 ) );
+    @SuppressWarnings( "unchecked" )
+    T tObj = (T) city;
+    return tObj;
   }
 
   /**
@@ -52,7 +74,22 @@ public class Koan14ObjectFactory extends DefaultObjectFactory {
     KoanSchoolMarm.getInstance().setObjectFactoryUsed(true);
 
     // TODO: fill in using the constructor of Actor that takes a Map
-    return null;
+    //return null;
+    if ( ctorArgs.size() != 4 )
+        throw new IllegalArgumentException( "Expected 4 args; got=" + ctorArgs.size() );
+    
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put( "id", ctorArgs.get( 0 ) );
+    map.put( "firstName", ctorArgs.get( 1 ) );
+    map.put( "lastName", ctorArgs.get( 2 ) );
+    map.put( "lastUpdate", ctorArgs.get( 3 ) );
+    
+    Actor actor = new Actor( map );
+    
+    @SuppressWarnings( "unchecked" )
+    T tObj = (T)actor;
+    
+    return tObj;
   }
 
   /**
@@ -66,7 +103,26 @@ public class Koan14ObjectFactory extends DefaultObjectFactory {
     KoanSchoolMarm.getInstance().setObjectFactoryUsed(true);
 
     // TODO: fill in using the Address.Builder inner class of Address
-    return null;
+    //return null;
+    
+    if ( ctorArgs.size() != 7 )
+        throw new IllegalArgumentException( "Expected 7 args; got=" + ctorArgs.size() );
+    
+    Builder b = new Address.Builder()
+        .id( (Integer)ctorArgs.get( 0 ) )
+        .address( (String)ctorArgs.get( 1 ) )
+        .address2( (String)ctorArgs.get( 2 ) )
+        .district( (String)ctorArgs.get( 3 ) )
+        .postalCode( (String)ctorArgs.get( 4 ) )
+        .phone( (String)ctorArgs.get( 5 ) )
+        .lastUpdate( (Date)ctorArgs.get( 6 ) );
+        //.city( (City)ctorArgs.get( 7 ) );
+    Address a = b.build();
+    
+    @SuppressWarnings( "unchecked" )
+    T tObj = (T)a;
+    
+    return tObj;
   }
 
 }

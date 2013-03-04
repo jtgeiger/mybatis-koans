@@ -115,7 +115,8 @@ public class Koan14 {
     ActorResultHandler rh = new ActorResultHandler();
     // TODO: the cast to ResultHandler will be unnecessary once you properly
     //       implement ActorResultHandler
-    session.select("getActorByRange", new Range(36, 42), (ResultHandler) rh);
+    //session.select("getActorByRange", new Range(36, 42), (ResultHandler) rh);
+    session.select("getActorByRange", new Range(36, 42), rh );
     List<Actor> la = rh.getActors();
     assertNotNull(la);
     assertEquals(6, la.size());
