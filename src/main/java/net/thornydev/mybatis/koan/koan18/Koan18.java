@@ -15,6 +15,9 @@ public class Koan18 {
   @Test
   public void learnToBuildSimpleSelectStatement() {
     // TODO: build a simple select statement that will pass the assert below
+      BEGIN();
+      SELECT( "*" );
+      FROM( "customer" );
     String sql = SQL();
 
     assertEquals("SELECT * FROM customer", normalize(sql));
@@ -23,6 +26,13 @@ public class Koan18 {
   @Test
   public void learnToBuildComplexSelectStatement() {
     // TODO: build a SQL statement that will pass the assert below
+      BEGIN();
+      SELECT( "l.language_id, l.name, l.last_update" );
+      SELECT( "f.film_id, f.title, f.last_update as film_upd, f.special_features" );
+      FROM( "language l" );
+      LEFT_OUTER_JOIN( "film f on f.language_id = l.language_id" );
+      WHERE( "l.language_id = #{id}" );
+      ORDER_BY( "f.film_id DESC" );
     String sql = SQL();
 
     String expectedSql =
@@ -39,6 +49,9 @@ public class Koan18 {
   @Test
   public void learnToBuildInsertStatement() {
     // TODO: build a SQL insert statement that will pass the assert below
+      BEGIN();
+      INSERT_INTO( "country" );
+      VALUES( "country_id, country", "#{id}, #{country}" );
     String sql = SQL();
 
     String expectedSql =
@@ -50,6 +63,11 @@ public class Koan18 {
   @Test
   public void learnToBuildUpdateStatement() {
     // TODO: build a SQL update statement that will pass the assert below
+      BEGIN();
+      UPDATE( "address" );
+      SET( "address2 = 'foo'" );
+      SET( "city_id = 22" );
+      WHERE( "address_id = #{id}" );
     String sql = SQL();
 
     String expectedSql =
@@ -62,6 +80,16 @@ public class Koan18 {
   public void learnToBuildCompoundStatementWithSubSelect() {
     // TODO: build a SQL update statement that has a subselect
     //       in order to pass the assert below
+      BEGIN();
+      SELECT( "city_id" );
+      FROM( "city" );
+      WHERE( "city = 'Grand Prairie'" );
+      String inner = SQL();
+
+      BEGIN();
+      UPDATE( "address" );
+      SET( "postal_code = '55555'" );
+      WHERE( "city_id = (" + inner + ')' );
     String sql = SQL();
 
     String expectedSql =
