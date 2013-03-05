@@ -15,7 +15,7 @@ public interface Koan17Mapper {
   /* ---[ film_in_stock stored proc mapper methods ]--- */
 
   // TODO: add annotations to make this work
-//not working
+//jtg: not working
   @Select( "{ CALL film_in_stock( " +
   		"#{filmId, mode=IN, jdbcType=INTEGER}, " +
   		"#{storeId, mode=IN, jdbcType=INTEGER}, " +
