@@ -7,12 +7,23 @@
 
   <resultMap id="filmWithCategoriesMap" type="FilmWithCategories">
     <!-- TODO: write the ResultMap to support the getFilmById query -->
+    <id property="id" column="film_id" />
+    <result property="title" column="title" />
+    <collection property="categories" ofType="Category">
+      <id property="id" column="category_id" />
+      <result property="name" column="name" />
+    </collection>
   </resultMap>
 
   <select id="getFilmById" parameterType="int" resultMap="filmWithCategoriesMap">
     <!-- TODO: write the three table join between film, film_category
                and category in order to extract a FilmWithCategories
                object with a List<Category> in it -->
+    SELECT f.film_id, f.title, c.category_id, c.name
+    FROM film f
+    JOIN film_category fc ON f.film_id = fc.film_id
+    JOIN category c ON fc.category_id = c.category_id
+    WHERE f.film_id = #{chewbacca}
   </select>
 
   <delete id="deleteAllCategoriesForFilm" parameterType="FilmWithCategories">
@@ -31,7 +42,7 @@
     <!-- TODO: This method will receive both a FilmWithCategories object and
                a Category object. Fill in the values clause to extract their
                respective ids. -->
-    VALUES(???)
+    VALUES( #{filmy.id}, #{catty.id} )
   </insert>
 
 </mapper>
