@@ -8,7 +8,7 @@
   <resultMap id="filmInStockIdMap" type="FilmInStockId" autoMapping="true">
     <!-- TODO: map the column to what your database returns from the 
                film_in_stock stored proc call -->
-    <result column="???" property="filmId"/>
+    <result column="inventory_id" property="filmId"/>
   </resultMap>
   
 </mapper>
