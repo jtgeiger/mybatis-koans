@@ -10,6 +10,11 @@
                alias="FilmWithCategories"/>
     <typeAlias type="net.thornydev.mybatis.koan.koan23.Category" alias="Category"/>
   </typeAliases>
+  
+  <typeHandlers>
+    <typeHandler javaType="net.thornydev.mybatis.koan.koan23.Rating"
+                 handler="net.thornydev.mybatis.koan.koan23.RatingTypeHandler" />
+  </typeHandlers>
 
   <environments default="development">
     <environment id="development">

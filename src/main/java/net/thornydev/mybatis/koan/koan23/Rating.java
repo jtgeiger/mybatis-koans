@@ -12,7 +12,7 @@ public enum Rating {
   // version (all caps)
   @Override
   public String toString() {
-    return null;
+    return name().replace( '_', '-' );
   }
 
   // Follow Josh Bloch's recommendation in Effective Java, 2ed
@@ -20,7 +20,8 @@ public enum Rating {
   // tweak expected incoming strings to match what the default
   // valueOf method can handle
   public static Rating fromString(String s) {
-    // TODO: implement this method
-    return null;
+    String name = s.replace( '-', '_' );
+    Rating r = valueOf( name );
+    return r;
   }
 }

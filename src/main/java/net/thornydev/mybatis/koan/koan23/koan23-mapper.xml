@@ -10,18 +10,26 @@
                having to declare it to create a Java Category enum. And as 
                long as you carefully craft this SQL query it will work.
                without doing anything else. -->
+    SELECT upper(name)
+    FROM category
+    WHERE name = #{abominableSnowman}
   </select>
 
   <resultMap id="filmWithCategoriesMap" type="FilmWithCategories">
     <!-- TODO: fill in the result map to create a FilmWithCategories
                object that has id, title and List<Category> fields filled in.
                (You do not need to handle Rating property for this query.) -->
+    <id property="id" column="id" />
+    <result property="title" column="title" />
+    <collection property="categories" ofType="Category">
+      <id column="name" />
+    </collection>
   </resultMap>
 
   <select id="getFilmById" parameterType="int" resultMap="filmWithCategoriesMap">
     <!-- TODO: write the select clause for the above resultMap -->
     <!-- NOTE: you do not need to retrieve and handle "rating" in this test -->
-    SELECT ???
+    SELECT f.film_id id, f.title, UPPER( c.name ) name
     FROM film f
     JOIN film_category fc ON f.film_id = fc.film_id
     JOIN category c ON fc.category_id = c.category_id
@@ -35,6 +43,9 @@
           Rating.NC-17, which doesn't exist (Rating.NC_17 does exist).
           So you will need to define the appropriate handler to tell
           MyBatis how to do it. -->
+    <id property="id" column="id" />
+    <result property="title" column="title" />
+    <result property="rating" column="rating" />
   </resultMap>
 
   <select id="getFilmWithRatingById" parameterType="int" resultMap="filmWithRatingMap">
@@ -52,7 +63,7 @@
           to put an explicit cast in the SQL to make it work. The link
           below can help guide you:
           http://stackoverflow.com/questions/4527311/setting-postgresql-enums-using-a-jdbc-resultset -->
-    SET rating = #{???}
+    SET rating = #{rating}
     WHERE film_id = #{id}
   </update>
 
@@ -64,7 +75,7 @@
   <insert id="addCategoryForFilm">
     INSERT INTO film_category (film_id, category_id)
     <!-- TODO: FILL in the values clause -->
-    VALUES( ??? )
+    VALUES( #{film.id}, #{category.id} )
   </insert>
 
 </mapper>

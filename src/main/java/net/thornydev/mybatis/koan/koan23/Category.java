@@ -39,7 +39,9 @@ public enum Category {
   // version (all caps)
   @Override
   public String toString() {
-    return null;
+    //return null;
+      return Character.toUpperCase( name().charAt( 0 ) ) +
+              name().substring( 1 ).toLowerCase();
   }
 
 }
